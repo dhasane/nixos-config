@@ -118,6 +118,18 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
+  programs.zsh = {
+    enable = true;
+    shellAliases = {
+      ll = "ls -l";
+      update = "sudo nixos-rebuild switch";
+    };
+    # history = {
+    #   size = 10000;
+    #   # path = "${config.xdg.dataHome}/zsh/history";
+    # };
+  };
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.daniel = {
     isNormalUser = true;
@@ -129,6 +141,10 @@
       emacs
       steam
     ];
+  };
+
+  users.extraUsers.daniel = {
+    shell = pkgs.zsh;
   };
 
   # Allow unfree packages
@@ -144,18 +160,6 @@
   };
 
   programs.nm-applet.enable = true;
-
-  programs.zsh = {
-    enable = true;
-    shellAliases = {
-      ll = "ls -l";
-      update = "sudo nixos-rebuild switch";
-    };
-    # history = {
-    #   size = 10000;
-    #   # path = "${config.xdg.dataHome}/zsh/history";
-    # };
-  };
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
