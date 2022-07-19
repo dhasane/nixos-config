@@ -16,20 +16,23 @@
   boot.loader.efi.efiSysMountPoint = "/boot/efi";
 
   networking.hostName = "vestigo"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  # networking.wireless = {
+  #   enable = true;
+  #   interfaces = [ "wlp1s0" ];
+  #   userControlled = {
+  #     enable = true;
+  #     group = "wheel";
+  #   };
+  # };
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-  # Enable networking
-  # services.connman.enable = true;
-  # networking.wireless.enable = true;
-  # networking.networkmanager.enabled = true;
-
-  networking.networkmanager = {
-    enable = true;
-  };
+  networking.networkmanager.enable = true;
+  # networking.networkmanager.packages = [ pkgs.networkmanagerapplet  ];
+  networking.networkmanager.unmanaged = [ "docker0" ];
+  # networking.nameservers = [ "<IP>" ];
 
   # Set your time zone.
   time.timeZone = "America/Bogota";
@@ -124,6 +127,7 @@
       firefox
       thunderbird
       emacs
+      steam
     ];
   };
 
@@ -138,6 +142,8 @@
     #     }/bin/git-credential-libsecret";
     # };
   };
+
+  programs.nm-applet.enable = true;
 
   programs.zsh = {
     enable = true;
@@ -168,7 +174,7 @@
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+  networking.firewall.enable = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -191,10 +197,15 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     # vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-    neovim
-    wget
-    git
+    cargo
     emacs
+    gcc
+    git
+    neovim
+    networkmanagerapplet
+    sqlite
+    tmux
+    wget
     zsh
     # emacsPgtkNativeComp
   ];
