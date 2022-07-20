@@ -77,6 +77,8 @@
         i3lock #default i3 screen locker
         i3blocks #if you are planning on using i3blocks over i3status
         #extras
+        upower
+        picom
         kitty
         rofi
      ];
@@ -88,8 +90,8 @@
 
   # Configure keymap in X11
   services.xserver = {
-    layout = "es";
-    xkbVariant = "";
+    layout = "latam";
+    xkbVariant = "nodeadkeys,";
   };
 
   # Configure console keymap
@@ -211,6 +213,7 @@
     tmux
     wget
     zsh
+    ripgrep
     # emacsPgtkNativeComp
   ];
 }
