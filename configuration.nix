@@ -8,117 +8,25 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./base.nix
+      ./network.nix
+      ./wm/xmonad.nix
     ];
 
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.efi.efiSysMountPoint = "/boot/efi";
-
   networking.hostName = "vestigo"; # Define your hostname.
-  # networking.wireless = {
-  #   enable = true;
-  #   interfaces = [ "wlp1s0" ];
-  #   userControlled = {
-  #     enable = true;
-  #     group = "wheel";
-  #   };
-  # };
 
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  networking.networkmanager.enable = true;
-  # networking.networkmanager.packages = [ pkgs.networkmanagerapplet  ];
-  networking.networkmanager.unmanaged = [ "docker0" ];
-  # networking.nameservers = [ "<IP>" ];
-
-  # Set your time zone.
-  time.timeZone = "America/Bogota";
-
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.utf8";
-
-  i18n.extraLocaleSettings = {
-    LC_ADDRESS = "es_CO.utf8";
-    LC_IDENTIFICATION = "es_CO.utf8";
-    LC_MEASUREMENT = "es_CO.utf8";
-    LC_MONETARY = "es_CO.utf8";
-    LC_NAME = "es_CO.utf8";
-    LC_NUMERIC = "es_CO.utf8";
-    LC_PAPER = "es_CO.utf8";
-    LC_TELEPHONE = "es_CO.utf8";
-    LC_TIME = "es_CO.utf8";
-  };
-
-  environment.pathsToLink = [ "/libexec" ];
-  services.xserver = {
-    # Enable the X11 windowing system.
-    enable = true;
-
-    # Enable the Enlightenment Desktop Environment.
-    displayManager.lightdm.enable = true;
-
-    # desktopManager.enlightenment.enable = true;
-    desktopManager = {
-      xterm.enable = false;
-    };
-
-    displayManager = {
-        defaultSession = "none+i3";
-    };
-
-    windowManager.i3 = {
-      enable = true;
-      extraPackages = with pkgs; [
-        dmenu #application launcher most people use
-        i3status # gives you the default i3 status bar
-        i3lock #default i3 screen locker
-        i3blocks #if you are planning on using i3blocks over i3status
-        #extras
-        upower
-        picom
-        kitty
-        rofi
-     ];
-    };
-  };
-
-  # Enable acpid
-  services.acpid.enable = true;
+  # programs.xmobar.enable = true;
 
   # Configure keymap in X11
   services.xserver = {
     layout = "latam";
     xkbVariant = "nodeadkeys,";
+    # xkbOptions = "ctrl:swapcaps";
+    xkbOptions = "caps:ctrl_modifier";
   };
 
   # Configure console keymap
   console.keyMap = "es";
-
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-
-  # Enable sound with pipewire.
-  sound.enable = true;
-  hardware.pulseaudio.enable = false;
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
-
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
-  };
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
 
   programs.zsh = {
     enable = true;
@@ -138,10 +46,6 @@
     description = "daniel";
     extraGroups = [ "networkmanager" "wheel" ];
     packages = with pkgs; [
-      firefox
-      thunderbird
-      emacs
-      steam
     ];
   };
 
@@ -161,8 +65,6 @@
     # };
   };
 
-  programs.nm-applet.enable = true;
-
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
@@ -172,15 +74,6 @@
   # };
 
   # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  networking.firewall.enable = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
@@ -197,23 +90,57 @@
   #    url = "https://github.com/nix-community/emacs-overlay.git";
   #    ref = "master";
   # }))
-  # ];
+
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+  }; # ];
+
+  environment.sessionVariables = {
+    MOZ_USE_XINPUT2 = "1";
+  };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    # vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+
+    dunst
+    firefox
+    kitty
+    networkmanagerapplet
+    picom
+    rofi
+    teams
+    thunderbird
+    trayer
+    upower
+    xmobar
+
+    # dev
     cargo
+    ccls
     emacs
     gcc
     git
     neovim
-    networkmanagerapplet
+    nmap
+    ripgrep
     sqlite
     tmux
     wget
     zsh
-    ripgrep
+
+    python
+
+    zig
+
+    # haskell
+    ghc
+    haskellPackages.haskell-language-server
+    haskellPackages.hoogle
+    cabal-install
+    stack
     # emacsPgtkNativeComp
   ];
 }
