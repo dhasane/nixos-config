@@ -31,9 +31,6 @@
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
 
-  # sound
-  sound.enable = true;
-
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
@@ -56,4 +53,9 @@
 
   # Enable touchpad support (enabled default in most desktopManager).
   services.xserver.libinput.enable = true;
+
+  swapDevices = [ {
+    device = "/var/lib/swapfile";
+    size = 8*1024;
+  } ];
 }

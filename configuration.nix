@@ -105,8 +105,10 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
 
+    direnv
     dunst
     firefox
+    gparted
     kitty
     networkmanagerapplet
     picom
@@ -116,6 +118,10 @@
     trayer
     upower
     xmobar
+
+    eww
+
+    krita
 
     # dev
     cargo
@@ -131,7 +137,20 @@
     wget
     zsh
 
-    python
+    # python
+    (let
+      my-python-packages = python-packages: with python-packages; [
+        pandas
+        requests
+        numpy
+        mamba
+        #other python packages you want
+      ];
+      python-with-my-packages = python3.withPackages my-python-packages;
+    in
+      python-with-my-packages)
+
+    jupyter
 
     zig
 
