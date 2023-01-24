@@ -10,12 +10,11 @@
       ./hardware-configuration.nix
       ./base.nix
       ./network.nix
-      ./wm/xmonad.nix
+      # ./wm/xmonad.nix
+      ./wm/i3.nix
     ];
 
   networking.hostName = "vestigo"; # Define your hostname.
-
-  # programs.xmobar.enable = true;
 
   # Configure keymap in X11
   services.xserver = {
@@ -44,25 +43,13 @@
   users.users.daniel = {
     isNormalUser = true;
     description = "daniel";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
     packages = with pkgs; [
     ];
   };
 
   users.extraUsers.daniel = {
     shell = pkgs.zsh;
-  };
-
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-
-  programs.git = {
-    enable = true;
-    # extraConfig = {
-    #   credential.helper = "${
-    #       pkgs.git.override { withLibsecret = true; }
-    #     }/bin/git-credential-libsecret";
-    # };
   };
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -91,19 +78,34 @@
   #    ref = "master";
   # }))
 
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-  }; # ];
+  # programs.steam = {
+  #     enable = true;
+  #     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+  #     dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+  #   }; # ];
 
   environment.sessionVariables = {
     MOZ_USE_XINPUT2 = "1";
   };
 
+  virtualisation.docker.enable = true;
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+
+    # pcmanfm
+    xfce.thunar
+
+    libreoffice
+    # (let
+    #   office = libreoffice-fresh-unwrapped;
+    # in {
+    #   environment.sessionVariables = {
+    #     PYTHONPATH = "${office}/lib/libreoffice/program";
+    #     URE_BOOTSTRAP = "vnd.sun.star.pathname:${office}/lib/libreoffice/program/fundamentalrc";
+    #   };
+    # })
 
     direnv
     dunst
@@ -115,20 +117,27 @@
     rofi
     teams
     thunderbird
-    trayer
+    # tdesktop # telegram
     upower
-    xmobar
+    # xmobar
+
+    cura
 
     eww
 
     krita
 
+    unzip
+
     # dev
+    cmake
     cargo
     ccls
     emacs
+    gh
     gcc
     git
+    glibc
     neovim
     nmap
     ripgrep
@@ -136,6 +145,11 @@
     tmux
     wget
     zsh
+
+    # scala
+    coursier
+
+    # emacsPgtkNativeComp
 
     # python
     (let
@@ -150,16 +164,16 @@
     in
       python-with-my-packages)
 
+    python39Packages.poetry
     jupyter
 
     zig
 
-    # haskell
-    ghc
-    haskellPackages.haskell-language-server
-    haskellPackages.hoogle
-    cabal-install
-    stack
-    # emacsPgtkNativeComp
+    # # haskell
+    # ghc
+    # haskellPackages.haskell-language-server
+    # haskellPackages.hoogle
+    # cabal-install
+    # stack
   ];
 }

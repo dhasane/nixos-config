@@ -54,8 +54,18 @@
   # Enable touchpad support (enabled default in most desktopManager).
   services.xserver.libinput.enable = true;
 
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
+
+  programs.git = {
+    enable = true;
+  };
+
   swapDevices = [ {
     device = "/var/lib/swapfile";
     size = 8*1024;
   } ];
+
+   services.udisks2.enable = true;
+   services.devmon.enable = true;
 }
