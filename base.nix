@@ -4,24 +4,24 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.loader.efi.efiSysMountPoint = "/boot/efi";
+
 
   # Set your time zone.
   time.timeZone = "America/Bogota";
 
   # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.utf8";
+  i18n.defaultLocale = "en_US.UTF-8";
 
   i18n.extraLocaleSettings = {
-    LC_ADDRESS = "es_CO.utf8";
-    LC_IDENTIFICATION = "es_CO.utf8";
-    LC_MEASUREMENT = "es_CO.utf8";
-    LC_MONETARY = "es_CO.utf8";
-    LC_NAME = "es_CO.utf8";
-    LC_NUMERIC = "es_CO.utf8";
-    LC_PAPER = "es_CO.utf8";
-    LC_TELEPHONE = "es_CO.utf8";
-    LC_TIME = "es_CO.utf8";
+    LC_ADDRESS = "es_CO.UTF-8";
+    LC_IDENTIFICATION = "es_CO.UTF-8";
+    LC_MEASUREMENT = "es_CO.UTF-8";
+    LC_MONETARY = "es_CO.UTF-8";
+    LC_NAME = "es_CO.UTF-8";
+    LC_NUMERIC = "es_CO.UTF-8";
+    LC_PAPER = "es_CO.UTF-8";
+    LC_TELEPHONE = "es_CO.UTF-8";
+    LC_TIME = "es_CO.UTF-8";
   };
 
   systemd.services.upower.enable = true;
@@ -35,8 +35,8 @@
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  sound.enable = true;
-  hardware.pulseaudio.enable = false;
+  # sound.enable = true;
+  services.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -52,7 +52,7 @@
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
-  services.xserver.libinput.enable = true;
+  services.libinput.enable = true;
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
