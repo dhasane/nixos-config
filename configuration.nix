@@ -18,6 +18,7 @@ in
       ./containers.nix
       ./network.nix
       ./home-manager.nix
+      ./fingerprint.nix
       # ./wm/xmonad.nix
       # ./wm/i3.nix
     ];
@@ -38,6 +39,7 @@ in
     isNormalUser = true;
     description = "Vestigo";
     extraGroups = [ "networkmanager" "wheel" ];
+    shell = pkgs.zsh;
     packages = with pkgs; [
     #  thunderbird
     ];
@@ -227,5 +229,6 @@ in
     # cabal-install
     # stack
     codex
+    usbutils
   ];
 }
