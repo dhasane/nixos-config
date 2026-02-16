@@ -19,20 +19,10 @@ in
       ./network.nix
       ./home-manager.nix
       ./fingerprint.nix
+      ./input.nix
       # ./wm/xmonad.nix
       # ./wm/i3.nix
     ];
-    
-    
-  # Configure keymap in X11
-  # services.xserver.xkb = {
-  #  layout = "us";
- #  variant = "";
- # };
-
-
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.${username} = {
@@ -60,30 +50,9 @@ in
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
 
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-
-
-    
   # Enable the GNOME Desktop Environment.
   services.displayManager.gdm.enable = true;
   services.desktopManager.gnome.enable = true;
-
-  networking.hostName = "vestigo"; # Define your hostname.
-
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "latam";
-    variant = "nodeadkeys";
-    # options = "ctrl:swapcaps";
-    options = "caps:ctrl_modifier";
-  };
-
-  # Configure console keymap
-  console.keyMap = "es";
 
   programs.zsh = {
     enable = true;
@@ -96,8 +65,6 @@ in
     #   # path = "${config.xdg.dataHome}/zsh/history";
     # };
   };
-
-
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -147,88 +114,25 @@ in
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-
-    # pcmanfm
-    # xfce.thunar
-
-    libreoffice
-    # (let
-    #   office = libreoffice-fresh-unwrapped;
-    # in {
-    #   environment.sessionVariables = {
-    #     PYTHONPATH = "${office}/lib/libreoffice/program";
-    #     URE_BOOTSTRAP = "vnd.sun.star.pathname:${office}/lib/libreoffice/program/fundamentalrc";
-    #   };
-    # })
-
     direnv
-    dunst
-    gparted
-    kitty
-    # networkmanagerapplet
-    # picom
-    # rofi
-    # teams
-    thunderbird
-    # tdesktop # telegram
-    # upower
-    # xmobar
-
-    cura
-
-    # eww
-
-    krita
-
-    unzip
-
-    # dev
-    # cmake
-    # cargo
-    # ccls
-    emacs
-    gh
-    # gcc
-    git
-    # glibc
-    neovim
-    nmap
     ripgrep
-    # sqlite
-    # tmux
     wget
     zsh
 
-    # scala
-    # coursier
+    libreoffice
+    gparted
+    kitty
+    thunderbird
+    cura
+    unzip
 
-    # emacsPgtkNativeComp
+    krita
 
-    # python
-    # (let
-    #  my-python-packages = python-packages: with python-packages; [
-    #    pandas
-    #    requests
-    #    numpy
-    #    mamba
-    #    #other python packages you want
-    #  ];
-    #  python-with-my-packages = python3.withPackages my-python-packages;
-    #in
-    #  python-with-my-packages)
+    emacs
+    gh
+    git
+    neovim
 
-    # python39Packages.poetry
-    # jupyter
-
-    # zig
-
-    # # haskell
-    # ghc
-    # haskellPackages.haskell-language-server
-    # haskellPackages.hoogle
-    # cabal-install
-    # stack
-    codex
     usbutils
   ];
 }
