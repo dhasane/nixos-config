@@ -6,7 +6,6 @@
   boot.loader.systemd-boot.configurationLimit = 3;
   boot.loader.efi.canTouchEfiVariables = true;
 
-
   # Set your time zone.
   time.timeZone = "America/Bogota";
 

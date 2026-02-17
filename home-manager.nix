@@ -1,7 +1,8 @@
-{ config, pkgs, lib, username, ... }:
+{ config, pkgs, lib, vars, ... }:
 
 let
   home-manager = builtins.fetchTarball https://github.com/nix-community/home-manager/archive/release-25.11.tar.gz;
+  username = vars.username;
 in
 {
   imports =

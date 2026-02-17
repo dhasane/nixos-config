@@ -5,11 +5,12 @@
 { config, pkgs, ... }:
 
 let
-  username = "";
+  vars = import /etc/nixos/local/vars.nix { };
+  username = vars.username;
 in
 
 {
-  _module.args = { inherit username; };
+  _module.args = { inherit vars; };
 
   imports =
     [ # Include the results of the hardware scan.
@@ -25,11 +26,10 @@ in
       # ./wm/i3.nix
     ];
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.${username} = {
     isNormalUser = true;
-    description = "Vestigo";
     extraGroups = [ "networkmanager" "wheel" ];
+    description = vars.fullName;
     shell = pkgs.zsh;
     packages = with pkgs; [
     #  thunderbird

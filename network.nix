@@ -1,6 +1,10 @@
-{ config, pkgs, ... }:
+{ config, pkgs, vars, ... }:
+
+let
+  hostname = vars.hostname;
+in
 {
-  networking.hostName = "vestigo"; # Define your hostname.
+  networking.hostName = hostname;
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
