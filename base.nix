@@ -25,7 +25,6 @@
     LC_TIME = "es_CO.UTF-8";
   };
 
-  systemd.services.upower.enable = true;
   services.acpid.enable = true;
 
   # bluetooth
