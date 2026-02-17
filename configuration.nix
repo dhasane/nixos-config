@@ -19,6 +19,7 @@ in
       ./network.nix
       ./home-manager.nix
       ./fingerprint.nix
+      ./security.nix
       ./input.nix
       # ./wm/xmonad.nix
       # ./wm/i3.nix
@@ -105,11 +106,6 @@ in
   #     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
   #     dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
   #   }; # ];
-
-  environment.sessionVariables = {
-    MOZ_USE_XINPUT2 = "1";
-  };
-
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
