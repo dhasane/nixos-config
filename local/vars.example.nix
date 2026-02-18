@@ -1,7 +1,7 @@
 { }:
 {
-  username = "youruser";
-  fullName = "Your Name";
-  hostname = "your-hostname";
-  luks-devices = [ "" ];
+  username = "user";
+  fullName = "Name";
+  hostname = "hostname";
+  luks-devices = [ ];
 }

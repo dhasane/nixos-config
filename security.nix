@@ -11,6 +11,8 @@ let
   }) luksList);
 in
 {
+  boot.initrd.luks.devices = luksDevices;
+
   security.pam.services = {
     login = {
       u2fAuth = true;
@@ -24,6 +26,12 @@ in
     };
   };
 
-  boot.initrd.luks.devices = luksDevices;
+  services.pcscd.enable = true;
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
+  };
 
+  # Enable the OpenSSH daemon.
+  # services.openssh.enable = true;
 }
