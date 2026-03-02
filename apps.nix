@@ -24,7 +24,8 @@
 
     libreoffice
     gparted
-    kitty
+    # kitty
+    ghostty
     thunderbird
     cura
     unzip
