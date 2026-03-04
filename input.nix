@@ -6,7 +6,19 @@
     layout = "latam";
     variant = "nodeadkeys";
     # options = "ctrl:swapcaps";
-    options = "caps:ctrl_modifier";
+    # options = "caps:ctrl_modifier"; # handled by keyd (tap=Esc, hold=Ctrl)
+  };
+
+  services.keyd.enable = true;
+  services.keyd.keyboards.default = {
+    ids = [ "*" ];
+    settings = {
+      main = {
+        # Dual-role Caps Lock: tap = Esc, hold = Ctrl
+        capslock = "overload(control, esc)";
+        leftcontrol = "overload(control, esc)";
+      };
+    };
   };
 
   # Configure console keymap

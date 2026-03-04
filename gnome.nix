@@ -32,7 +32,7 @@ in
       lockAll = true; # prevents overriding
       settings = {
         "org/gnome/desktop/input-sources" = {
-          xkb-options = [ "ctrl:nocaps" ];
+          # xkb-options = [ "ctrl:nocaps" ]; # handled by keyd (tap=Esc, hold=Ctrl)
           sources = [
             (lib.gvariant.mkTuple [ "xkb" "us" ])
             (lib.gvariant.mkTuple [ "xkb" "latam" ])
