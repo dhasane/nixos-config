@@ -14,6 +14,8 @@ in
       ./hardware-configuration.nix
       ./user.nix
       ./base.nix
+      ./memory.nix
+      ./pruning.nix
       ./network.nix
       ./security.nix
       ./input.nix

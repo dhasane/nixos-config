@@ -60,40 +60,12 @@
     enable = true;
   };
 
-  nix.gc = {
-    automatic = true;
-    dates = "weekly";
-    options = "--delete-older-than 7d";
-  };
-
-  system.activationScripts.pruneSystemGenerations.text = ''
-    # Keep only the last 3 system generations after rebuild.
-    ${pkgs.nix}/bin/nix-env --profile /nix/var/nix/profiles/system --delete-generations +3
-  '';
-
-  systemd.services.nix-prune-generations-weekly = {
-    description = "Prune NixOS system generations older than 7 days";
-    serviceConfig = {
-      Type = "oneshot";
-    };
-    script = ''
-      ${pkgs.nix}/bin/nix-env --profile /nix/var/nix/profiles/system --delete-older-than 7d
-    '';
-  };
-
-  systemd.timers.nix-prune-generations-weekly = {
-    wantedBy = [ "timers.target" ];
-    timerConfig = {
-      OnCalendar = "weekly";
-      Persistent = true;
-    };
-  };
-
-  swapDevices = [ {
-    device = "/var/lib/swapfile";
-    size = 8*1024;
-  } ];
-
   services.udisks2.enable = true;
   services.devmon.enable = true;
+
+  # Firmware updates via LVFS (fwupdmgr refresh && fwupdmgr get-updates).
+  services.fwupd.enable = true;
+
+  # Intel thermal daemon — helps avoid throttling on the Latitude.
+  services.thermald.enable = true;
 }
