@@ -24,6 +24,9 @@
   # Configure console keymap
   console.keyMap = "es";
 
+  # Touchpad + pointer input.
+  services.libinput.enable = true;
+
   environment.sessionVariables = {
     MOZ_USE_XINPUT2 = "1";
   };

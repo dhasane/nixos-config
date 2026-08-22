@@ -12,23 +12,31 @@ in
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ./user.nix
       ./base.nix
-      ./memory.nix
-      ./pruning.nix
-      ./network.nix
-      ./security.nix
-      ./input.nix
+
+      ./system/network.nix
+      ./system/pruning.nix
+      ./system/security.nix
+
+      ./hardware/audio.nix
+      ./hardware/bluetooth.nix
+      ./hardware/fingerprint.nix
+      ./hardware/input.nix
+      ./hardware/memory.nix
+      ./hardware/power.nix
+      ./hardware/printing.nix
+      ./hardware/storage.nix
+
+      ./user/user.nix
+      ./user/shell.nix
+      ./user/home-manager.nix
+
+      ./desktop/gnome.nix
+      # ./desktop/xmonad.nix
+      # ./desktop/i3.nix
 
       # optional
-      ./home-manager.nix
-      ./fingerprint.nix
-      ./shell.nix
       # ./containers.nix
       ./apps.nix
-      ./gnome.nix
-
-      # ./wm/xmonad.nix
-      # ./wm/i3.nix
     ];
 }
