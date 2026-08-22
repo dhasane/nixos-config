@@ -7,12 +7,15 @@
   # programs.mtr.enable = true;
 
   programs.steam = {
-      enable = true;
-      # remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-      # dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-    }; # ];
+    enable = true;
+    # remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+    # dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+  }; # ];
 
   programs.firefox.enable = true;
+  programs.chromium.enable = true;
+
+  programs.thunderbird.enable = true;
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
@@ -26,13 +29,25 @@
     gparted
     # kitty
     ghostty
-    thunderbird
-    cura
+    # thunderbird
+    # cura
     unzip
 
-    krita
+    # krita
 
-    emacs
+    (emacs.pkgs.withPackages (epkgs: [
+      epkgs.jinx
+    ]))
+    gcc
+    enchant
+    hunspellDicts.en_US
+    hunspellDicts.es_CO
+    groff
+
+    spotify
+
+    calibre
+
     gh
     git
     neovim
@@ -40,5 +55,10 @@
     usbutils
 
     discord
+    claude-code
+    # claude-agent-acp
+
+    # drawio
+    gotop
   ];
 }

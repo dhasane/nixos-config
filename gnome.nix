@@ -47,6 +47,11 @@ in
         "org/gnome/mutter" = {
           overlay-key = "Super_L";
         };
+
+        # org.gnome.desktop.interface clock-format 12h
+        "org/gnome/desktop/interface" = {
+          clock-format = "12h";
+        };
       };
     }
   ];
