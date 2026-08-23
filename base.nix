@@ -27,6 +27,9 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  # Flakes + `nix` CLI.
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
   programs.git = {
     enable = true;
   };

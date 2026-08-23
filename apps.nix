@@ -54,6 +54,9 @@
 
     usbutils
 
+    # Secure Boot key management + verification (used by system/lanzaboote.nix).
+    sbctl
+
     discord
     claude-code
     # claude-agent-acp
